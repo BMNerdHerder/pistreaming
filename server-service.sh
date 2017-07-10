@@ -6,7 +6,7 @@ if [ $1 = "start" ]; then
     then
         exit
     else
-        python3 /home/pi/pistreaming/server.py &
+        /home/pi/pistreaming/server.py &
     fi
     sleep 30
     done
