@@ -125,16 +125,15 @@ class BroadcastThread(Thread):
             self.converter.stdout.close()
 
 def timelapseppath ():
-    PATH="TimeLapse"
+    PATH="TimeLapse/"
     FOLDER = 1
     while os.path.exists('%s%s' % (PATH, FOLDER)) == True:  # Check if folder exists
         FOLDER = FOLDER + 1  # increment folder number if exists
     os.makedirs('%s%s' % (PATH, FOLDER))  # Create folder if it doesn't
     PATH = ('%s%s' % (PATH, FOLDER))  # set path to correct folder
-
+    return PATH
 def main():
-    timelapseppath()
-    dave=0
+    PATH=timelapseppath()
     print('Initializing camera')
     with picamera.PiCamera() as camera:
         camera.resolution = (WIDTH, HEIGHT)
@@ -168,7 +167,7 @@ def main():
             x=0
             while True:
                 camera.wait_recording(1)
-                camera.capture('%s/%s.jpg' % (PATH,x), use_video_port=True)
+                camera.capture('%s/%5d.jpg' % (PATH,x), use_video_port=True)
                 sleep(DELAY)
                 x+=1
         except KeyboardInterrupt:
