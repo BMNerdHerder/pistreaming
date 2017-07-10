@@ -120,11 +120,7 @@ class BroadcastThread(Thread):
                     break
         finally:
             self.converter.stdout.close()
-def Timelapse():
-    with picamera.PiCamera() as camera:
-        camera.resolution = (2592, 1944)
-        time.sleep(10)
-        camera.capture('foo.jpg', use_video_port=True)
+
 
 def main():
     print('Initializing camera')
@@ -148,6 +144,7 @@ def main():
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
         camera.start_recording(output, 'yuv')
+
         try:
             print('Starting websockets thread')
             websocket_thread.start()
@@ -155,9 +152,11 @@ def main():
             http_thread.start()
             print('Starting broadcast thread')
             broadcast_thread.start()
-            Timelapse()
+            x=0
             while True:
                 camera.wait_recording(1)
+                camera.capture('%s.jpg' % x, use_video_port=True)
+                x+=1
         except KeyboardInterrupt:
             pass
         finally:
