@@ -157,7 +157,7 @@ def main():
             while True:
                 camera.wait_recording(1)
                 camera.capture('%s.jpg' % x, use_video_port=True)
-                time.sleep(DELAY - 13)
+                time.sleep(DELAY)
                 x+=1
         except KeyboardInterrupt:
             pass
