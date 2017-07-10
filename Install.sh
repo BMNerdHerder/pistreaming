@@ -13,6 +13,7 @@ sudo chmod +x .kill.sh
 
 sudo cp pistreaming.service /lib/systemd/system/pistreaming.service
 
+systemctl daemon-reload
 sudo systemctl enable pistreaming.service
 sudo systemctl start pistreaming.service
 sudo systemctl status pistreaming.service
