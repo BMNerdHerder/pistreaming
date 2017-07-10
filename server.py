@@ -147,16 +147,8 @@ def main():
         output = BroadcastOutput(camera)
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
-
-        camera.framerate = Fraction(1, 6)
-        camera.shutter_speed = 6000000
-        camera.exposure_mode = 'off'
-        camera.iso = 800
         camera.start_recording(output, 'yuv')
-        camera.framerate = FRAMERATE
-        camera.shutter_speed = 0
-        camera.exposure_mode = 'auto'
-        camera.iso = 0
+
 
         try:
             print('Starting websockets thread')
@@ -168,9 +160,19 @@ def main():
             x=0
             while True:
                 camera.wait_recording(1)
+
+                camera.framerate = Fraction(1, 6)
+                camera.shutter_speed = 6000000
+                camera.exposure_mode = 'off'
+                camera.iso = 800
                 camera.capture('%s.jpg' % x, use_video_port=True)
+                camera.framerate = FRAMERATE
+                camera.shutter_speed = 0
+                camera.exposure_mode = 'auto'
+                camera.iso = 0
                 sleep(DELAY)
                 x+=1
+
         except KeyboardInterrupt:
             pass
         finally:
