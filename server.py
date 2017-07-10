@@ -30,7 +30,7 @@ COLOR = u'#444'
 BGCOLOR = u'#333'
 JSMPEG_MAGIC = b'jsmp'
 JSMPEG_HEADER = Struct('>4sHH')
-DELAY = 10
+DELAY = 30
 ###########################################
 
 
@@ -167,7 +167,7 @@ def main():
             x=0
             while True:
                 camera.wait_recording(1)
-                camera.capture('%s/%5d.jpg' % (PATH,x), use_video_port=True)
+                camera.capture('%s/%05d.jpg' % (PATH,x), use_video_port=True)
                 sleep(DELAY)
                 x+=1
         except KeyboardInterrupt:

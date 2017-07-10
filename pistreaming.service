@@ -1,0 +1,11 @@
+[Unit]
+Description=pisteaming
+
+[Service]
+ExecStart=/home/pi/pistreaming/server-service.sh start
+ExecStop=/home/pi/pistreaming/server-service.sh stop
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target
+Alias=timelapse.service
