@@ -7,7 +7,7 @@ if [[ $1 = "start" ]]; then
         echo "Running"
     else
         echo "Stopped"
-        ./home/pi/pistreaming/server.py &
+        /home/pi/pistreaming/server.py &
     fi
     sleep 30
     done
