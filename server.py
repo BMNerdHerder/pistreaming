@@ -125,6 +125,7 @@ class BroadcastThread(Thread):
 
 
 def main():
+    dave=0
     print('Initializing camera')
     with picamera.PiCamera() as camera:
         camera.resolution = (1080, 720)
