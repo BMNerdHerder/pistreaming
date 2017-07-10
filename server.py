@@ -20,8 +20,8 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 
 ###########################################
 # CONFIGURATION
-WIDTH = 1080
-HEIGHT = 720
+WIDTH = 640
+HEIGHT = 480
 FRAMERATE = 24
 HTTP_PORT = 8082
 WS_PORT = 8084
@@ -127,7 +127,7 @@ class BroadcastThread(Thread):
 def main():
     print('Initializing camera')
     with picamera.PiCamera() as camera:
-        camera.resolution = (WIDTH, HEIGHT)
+        camera.resolution = (1080, 720)
         camera.framerate = FRAMERATE
         sleep(1) # camera warm-up time
         print('Initializing websockets server on port %d' % WS_PORT)
@@ -145,7 +145,7 @@ def main():
         output = BroadcastOutput(camera)
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
-        camera.start_recording(output, 'yuv', resize=(640, 480))
+        camera.start_recording(output, 'yuv', resize=(WIDTH, HEIGHT))
 
         try:
             print('Starting websockets thread')
