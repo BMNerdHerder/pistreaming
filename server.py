@@ -153,6 +153,10 @@ def main():
         camera.exposure_mode = 'off'
         camera.iso = 800
         camera.start_recording(output, 'yuv')
+        camera.framerate = FRAMERATE
+        camera.shutter_speed = 0
+        camera.exposure_mode = 'auto'
+        camera.iso = 0
 
         try:
             print('Starting websockets thread')
