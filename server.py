@@ -154,6 +154,7 @@ def main():
             broadcast_thread.start()
             x=0
             while True:
+                camera.stop_recording()
                 camera.framerate = Fraction(1, 6)
                 camera.shutter_speed = 6000000
                 camera.exposure_mode = 'off'
