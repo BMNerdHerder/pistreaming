@@ -121,6 +121,7 @@ class BroadcastThread(Thread):
         finally:
             self.converter.stdout.close()
 def Timelapse():
+    with picamera.PiCamera() as camera:
     camera.resolution = (2592, 1944)
     time.sleep(10)
     camera.capture('foo.jpg', use_video_port=True)
