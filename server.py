@@ -124,6 +124,12 @@ class BroadcastThread(Thread):
         finally:
             self.converter.stdout.close()
 
+def timelapseppath ():
+    PATH=TimeLapse
+    while os.path.exists('%s%s' % (PATH, FOLDER)) == True:  # Check if folder exists
+        FOLDER = FOLDER + 1  # increment folder number if exists
+    os.makedirs('%s%s' % (PATH, FOLDER))  # Create folder if it doesn't
+    PATH = ('%s%s' % (PATH, FOLDER))  # set path to correct folder
 
 def main():
     dave=0
@@ -160,7 +166,7 @@ def main():
             x=0
             while True:
                 camera.wait_recording(1)
-                camera.capture('%s.jpg' % x, use_video_port=True)
+                camera.capture('%s/%s.jpg' % (PATH,x), use_video_port=True)
                 sleep(DELAY)
                 x+=1
         except KeyboardInterrupt:
