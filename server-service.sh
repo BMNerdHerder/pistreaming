@@ -1,14 +1,12 @@
 #!/bin/bash
 
-/home/pi/pistreaming/server-service.sh &
-
 if [[ $1 = "start" ]]; then
     while true; do
         if pgrep -x "python3" > /dev/null
     then
         exit
     else
-        /home/pi/pistreaming/server.py &
+        ./home/pi/pistreaming/server.py &
     fi
     sleep 30
     done
