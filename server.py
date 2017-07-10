@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 import sys
-import time
-import datetime
+from time import sleep
 import io
 import os
 import shutil
@@ -159,7 +158,7 @@ def main():
             while True:
                 camera.wait_recording(1)
                 camera.capture('%s.jpg' % x, use_video_port=True)
-                time.sleep(DELAY)
+                sleep(DELAY)
                 x+=1
         except KeyboardInterrupt:
             pass
