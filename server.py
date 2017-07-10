@@ -30,7 +30,7 @@ COLOR = u'#444'
 BGCOLOR = u'#333'
 JSMPEG_MAGIC = b'jsmp'
 JSMPEG_HEADER = Struct('>4sHH')
-DELAY = 30
+DELAY = 10
 ###########################################
 
 
@@ -147,6 +147,9 @@ def main():
         output = BroadcastOutput(camera)
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
+        camera.start_recording(output, 'yuv')
+
+
         try:
             print('Starting websockets thread')
             websocket_thread.start()
@@ -155,25 +158,11 @@ def main():
             print('Starting broadcast thread')
             broadcast_thread.start()
             x=0
-            camera.start_recording(output, 'yuv')
-            sleep(1)
             while True:
-                camera.stop_recording()
-                camera.framerate = Fraction(1, 6)
-                camera.shutter_speed = 6000000
-                camera.exposure_mode = 'off'
-                camera.iso = 800
-                camera.capture('%s.jpg' % x)
-                camera.framerate = FRAMERATE
-                camera.shutter_speed = 0
-                camera.exposure_mode = 'auto'
-                camera.iso = 0
-                camera.resolution = (WIDTH, HEIGHT)
-                sleep(1)
-                camera.start_recording(output, 'yuv')
+                camera.wait_recording(1)
+                camera.capture('%s.jpg' % x, use_video_port=True)
                 sleep(DELAY)
                 x+=1
-
         except KeyboardInterrupt:
             pass
         finally:
