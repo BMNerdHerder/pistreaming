@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#/home/pi/pistreaming/server-service.sh
+/home/pi/pistreaming/server-service.sh &
 
 if [[ $1 = "start" ]]; then
     while true; do
