@@ -132,7 +132,6 @@ def main():
         camera.resolution = (WIDTH, HEIGHT)
         camera.framerate = FRAMERATE
         sleep(1) # camera warm-up time
-        camera.start_recording(output, 'yuv')
         print('Initializing websockets server on port %d' % WS_PORT)
         websocket_server = make_server(
             '', WS_PORT,
@@ -156,6 +155,8 @@ def main():
             print('Starting broadcast thread')
             broadcast_thread.start()
             x=0
+            camera.start_recording(output, 'yuv')
+            sleep(1)
             while True:
                 camera.stop_recording()
                 camera.framerate = Fraction(1, 6)
