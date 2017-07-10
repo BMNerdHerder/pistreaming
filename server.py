@@ -129,8 +129,6 @@ def main():
     dave=0
     print('Initializing camera')
     with picamera.PiCamera() as camera:
-        camera.resolution = (WIDTH, HEIGHT)
-        camera.framerate = FRAMERATE
         sleep(1) # camera warm-up time
         print('Initializing websockets server on port %d' % WS_PORT)
         websocket_server = make_server(
@@ -147,9 +145,6 @@ def main():
         output = BroadcastOutput(camera)
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
-        camera.start_recording(output, 'yuv')
-
-
         try:
             print('Starting websockets thread')
             websocket_thread.start()
@@ -159,17 +154,18 @@ def main():
             broadcast_thread.start()
             x=0
             while True:
-                camera.wait_recording(1)
-
                 camera.framerate = Fraction(1, 6)
                 camera.shutter_speed = 6000000
                 camera.exposure_mode = 'off'
                 camera.iso = 800
-                camera.capture('%s.jpg' % x, use_video_port=True)
+                camera.capture('%s.jpg' % x)
                 camera.framerate = FRAMERATE
                 camera.shutter_speed = 0
                 camera.exposure_mode = 'auto'
                 camera.iso = 0
+                camera.resolution = (WIDTH, HEIGHT)
+                sleep(1)
+                camera.start_recording(output, 'yuv')
                 sleep(DELAY)
                 x+=1
 
