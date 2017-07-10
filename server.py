@@ -125,7 +125,7 @@ class BroadcastThread(Thread):
             self.converter.stdout.close()
 
 def timelapseppath ():
-    PATH=TimeLapse
+    PATH="TimeLapse"
     while os.path.exists('%s%s' % (PATH, FOLDER)) == True:  # Check if folder exists
         FOLDER = FOLDER + 1  # increment folder number if exists
     os.makedirs('%s%s' % (PATH, FOLDER))  # Create folder if it doesn't
