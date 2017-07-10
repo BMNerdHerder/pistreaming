@@ -132,6 +132,7 @@ def timelapseppath ():
     PATH = ('%s%s' % (PATH, FOLDER))  # set path to correct folder
 
 def main():
+    timelapseppath()
     dave=0
     print('Initializing camera')
     with picamera.PiCamera() as camera:
