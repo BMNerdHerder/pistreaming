@@ -4,8 +4,9 @@ if [[ $1 = "start" ]]; then
     while true; do
         if pgrep -x "python3" > /dev/null
     then
-        exit
+        echo "Running"
     else
+        echo "Stopped"
         ./home/pi/pistreaming/server.py &
     fi
     sleep 30
