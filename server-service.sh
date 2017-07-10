@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ $1 = "start" ]; then
+if [[ $1 = "start" ]]; then
     while true; do
         if pgrep -x "python3" > /dev/null
     then
