@@ -30,7 +30,7 @@ COLOR = u'#444'
 BGCOLOR = u'#333'
 JSMPEG_MAGIC = b'jsmp'
 JSMPEG_HEADER = Struct('>4sHH')
-DELAY = 10
+DELAY = 30
 ###########################################
 
 
@@ -129,7 +129,10 @@ def main():
     dave=0
     print('Initializing camera')
     with picamera.PiCamera() as camera:
+        camera.resolution = (WIDTH, HEIGHT)
+        camera.framerate = FRAMERATE
         sleep(1) # camera warm-up time
+        camera.start_recording(output, 'yuv')
         print('Initializing websockets server on port %d' % WS_PORT)
         websocket_server = make_server(
             '', WS_PORT,
