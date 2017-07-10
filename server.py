@@ -144,6 +144,7 @@ def main():
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
         camera.start_recording(output, 'yuv')
+        camera.capture('foo.jpg', use_video_port=True)
         try:
             print('Starting websockets thread')
             websocket_thread.start()
