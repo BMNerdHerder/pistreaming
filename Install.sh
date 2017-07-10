@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git pull https://github.com/BMNerdHerder/pistreaming.git
+
 sudo apt-get install python-picamera libav-tools git python3-picamera python3-ws4py -y
 
 sudo chmod +x server.py
