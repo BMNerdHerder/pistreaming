@@ -20,8 +20,8 @@ from ws4py.server.wsgiutils import WebSocketWSGIApplication
 
 ###########################################
 # CONFIGURATION
-WIDTH = 1080
-HEIGHT = 720
+WIDTH = 640
+HEIGHT = 480
 FRAMERATE = 24
 HTTP_PORT = 8082
 WS_PORT = 8084
@@ -146,6 +146,11 @@ def main():
         output = BroadcastOutput(camera)
         broadcast_thread = BroadcastThread(output.converter, websocket_server)
         print('Starting recording')
+
+        camera.framerate = Fraction(1, 6)
+        camera.shutter_speed = 6000000
+        camera.exposure_mode = 'off'
+        camera.iso = 800
         camera.start_recording(output, 'yuv')
 
         try:
