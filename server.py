@@ -120,7 +120,10 @@ class BroadcastThread(Thread):
                     break
         finally:
             self.converter.stdout.close()
-
+def Timelapse():
+    camera.resolution = (2592, 1944)
+    time.sleep(10)
+    camera.capture('foo.jpg', use_video_port=True)
 
 def main():
     print('Initializing camera')
@@ -151,6 +154,7 @@ def main():
             http_thread.start()
             print('Starting broadcast thread')
             broadcast_thread.start()
+            Timelapse()
             while True:
                 camera.wait_recording(1)
         except KeyboardInterrupt:
@@ -168,10 +172,6 @@ def main():
             http_thread.join()
             print('Waiting for websockets thread to finish')
             websocket_thread.join()
-    camera.resolution = (2592, 1944)
-    time.sleep(10)
-    camera.capture('foo.jpg', use_video_port=True)
-
 
 if __name__ == '__main__':
     main()
